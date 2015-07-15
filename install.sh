@@ -7,7 +7,7 @@ set -o errexit
 ##############################################################
 
 BUILD_DIR=/tmp
-OPENRESTY_VERSION=1.7.10.2rc1
+OPENRESTY_VERSION=1.7.10.2
 OPENSSL_VERSION=1.0.2d
 OPENRESTY_BASE=ngx_openresty-$OPENRESTY_VERSION
 OPENSSL_BASE=openssl-$OPENSSL_VERSION
@@ -15,7 +15,7 @@ OPENSSL_BASE=openssl-$OPENSSL_VERSION
 cd $BUILD_DIR
 
 # Download OpenSSL
-wget --no-check-certificate https://www.openssl.org/source/$OPENSSL_BASE.tar.gz -O $OPENSSL_BASE.tar.gz
+wget https://www.openssl.org/source/$OPENSSL_BASE.tar.gz -O $OPENSSL_BASE.tar.gz
 tar xzf $OPENSSL_BASE.tar.gz
 OPENRESTY_CONFIGURE_PARAMS="--with-openssl=$BUILD_DIR/$OPENSSL_BASE"
 if [ "$(uname)" = "Darwin" ]; then # Checking if OS X
@@ -28,12 +28,12 @@ curl http://openresty.org/download/$OPENRESTY_BASE.tar.gz | tar xz
 
 # Download and apply nginx patch
 cd $OPENRESTY_BASE/bundle/nginx-*
-wget --no-check-certificate https://raw.githubusercontent.com/openresty/lua-nginx-module/ssl-cert-by-lua/patches/nginx-ssl-cert.patch --no-check-certificate
+wget https://raw.githubusercontent.com/openresty/lua-nginx-module/ssl-cert-by-lua/patches/nginx-ssl-cert.patch --no-check-certificate
 patch -p1 < nginx-ssl-cert.patch
 cd ..
 
 # Download `ssl-cert-by-lua` branch
-wget --no-check-certificate https://github.com/openresty/lua-nginx-module/archive/ssl-cert-by-lua.tar.gz -O ssl-cert-by-lua.tar.gz --no-check-certificate
+wget https://github.com/openresty/lua-nginx-module/archive/ssl-cert-by-lua.tar.gz -O ssl-cert-by-lua.tar.gz --no-check-certificate
 tar xzf ssl-cert-by-lua.tar.gz
 
 # Replace `ngx_lua-*` with `ssl-cert-by-lua` branch

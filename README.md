@@ -1,5 +1,5 @@
 # docker-java-openresty
-Docker container for openresty 1.7.10.2rc1 with java 7
+Docker container for openresty 1.7.10.2 and openssl 1.0.2d with java 7
 
 I'm using this for testing kong locally
 
